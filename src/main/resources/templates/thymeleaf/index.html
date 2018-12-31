@@ -1,9 +1,7 @@
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>支付宝电脑网站支付</title>
+    <title th:title="支付宝电脑网站支付demo">支付宝电脑网站支付</title>
     <style type="text/css">
         * {
             margin: 0;
@@ -202,28 +200,27 @@
         <h2 id="tab4" name="tab">退 款 查 询</h2>
         <h2 id="tab5" name="tab">交 易 关 闭</h2>
     </div>
-    <form name=alipayment action=alipay.trade.page.pay.jsp method=post
-          target="_blank">
+    <form name=alipayment action="tradePagePay" method=post target="_blank">
         <div id="body1" class="show" name="divcontent">
             <dl class="content">
                 <dt>商户订单号 ：</dt>
                 <dd>
-                    <input id="WIDout_trade_no" name="WIDout_trade_no"/>
+                    <input id="out_trade_no" name="out_trade_no"/>
                 </dd>
                 <hr class="one_line">
                 <dt>订单名称 ：</dt>
                 <dd>
-                    <input id="WIDsubject" name="WIDsubject"/>
+                    <input id="subject" name="subject"/>
                 </dd>
                 <hr class="one_line">
                 <dt>付款金额 ：</dt>
                 <dd>
-                    <input id="WIDtotal_amount" name="WIDtotal_amount"/>
+                    <input id="total_amount" name="total_amount"/>
                 </dd>
                 <hr class="one_line">
                 <dt>商品描述：</dt>
                 <dd>
-                    <input id="WIDbody" name="WIDbody"/>
+                    <input id="body" name="body"/>
                 </dd>
                 <hr class="one_line">
                 <dt></dt>
@@ -236,7 +233,7 @@
             </dl>
         </div>
     </form>
-    <form name=tradequery action=alipay.trade.query.jsp method=post target="_blank">
+    <form name=tradequery action="tradeQuery" method=post target="_blank">
         <div id="body2" class="tab-content" name="divcontent">
             <dl class="content">
                 <dt>商户订单号 ：</dt>
@@ -259,7 +256,7 @@
             </dl>
         </div>
     </form>
-    <form name=traderefund action=alipay.trade.refund.jsp method=post target="_blank">
+    <form name=traderefund action="tradeRefund" method=post target="_blank">
         <div id="body3" class="tab-content" name="divcontent">
             <dl class="content">
                 <dt>商户订单号 ：</dt>
@@ -297,7 +294,7 @@
             </dl>
         </div>
     </form>
-    <form name=traderefundquery action=alipay.trade.fastpay.refund.query.jsp method=post target="_blank">
+    <form name=traderefundquery action="tradeRefundQuery" method=post target="_blank">
         <div id="body4" class="tab-content" name="divcontent">
             <dl class="content">
                 <dt>商户订单号 ：</dt>
@@ -325,7 +322,7 @@
             </dl>
         </div>
     </form>
-    <form name=tradeclose action=alipay.trade.close.jsp method=post target="_blank">
+    <form name=tradeclose action="tradeClose" method=post target="_blank">
         <div id="body5" class="tab-content" name="divcontent">
             <dl class="content">
                 <dt>商户订单号 ：</dt>
@@ -387,9 +384,9 @@
         sNow += String(vNow.getMinutes());
         sNow += String(vNow.getSeconds());
         sNow += String(vNow.getMilliseconds());
-        document.getElementById("WIDout_trade_no").value = sNow;
-        document.getElementById("WIDsubject").value = "测试";
-        document.getElementById("WIDtotal_amount").value = "0.01";
+        document.getElementById("out_trade_no").value = sNow;
+        document.getElementById("subject").value = "测试";
+        document.getElementById("total_amount").value = "0.01";
     }
 
     GetDateNow();

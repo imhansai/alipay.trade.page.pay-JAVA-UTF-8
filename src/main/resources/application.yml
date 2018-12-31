@@ -1,0 +1,9 @@
+server:
+  port: 8001
+
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/thymeleaf/
+    suffix: .html
+    view-names: "*.html"

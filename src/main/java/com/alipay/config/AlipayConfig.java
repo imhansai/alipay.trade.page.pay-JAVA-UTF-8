@@ -1,5 +1,7 @@
 package com.alipay.config;
 
+import org.springframework.util.ResourceUtils;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -22,6 +24,11 @@ public class AlipayConfig {
     public static String app_id = "";
 
     /**
+     * 商户UID
+     */
+    public static String seller_id = "";
+
+    /**
      * 商户私钥，您的PKCS8格式RSA2私钥
      */
     public static String merchant_private_key = "";
@@ -34,12 +41,12 @@ public class AlipayConfig {
     /**
      * 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
      */
-    public static String notify_url = "http://工程公网访问地址/alipay.trade.page.pay-JAVA-UTF-8/notify_url.jsp";
+    public static String notify_url = "http://www.hansai.tk:8001/notifyUrl";
 
     /**
      * 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
      */
-    public static String return_url = "http://工程公网访问地址/alipay.trade.page.pay-JAVA-UTF-8/return_url.jsp";
+    public static String return_url = "http://www.hansai.tk:8001/returnUrl";
 
     /**
      * 签名方式
@@ -52,9 +59,10 @@ public class AlipayConfig {
     public static String charset = "utf-8";
 
     /**
-     * 支付宝网关
+     * 支付宝网关: https://openapi.alipay.com/gateway.do
+     * 沙箱网关: https://openapi.alipaydev.com/gateway.do
      */
-    public static String gatewayUrl = "https://openapi.alipay.com/gateway.do";
+    public static String gatewayUrl = "https://openapi.alipaydev.com/gateway.do";
 
     // ↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
@@ -66,8 +74,8 @@ public class AlipayConfig {
     public static void logResult(String sWord) {
         FileWriter writer = null;
         try {
-            String log_path = "C:\\";
-            writer = new FileWriter(log_path + "alipay_log_" + System.currentTimeMillis() + ".txt");
+            String logPath = ResourceUtils.getURL("classpath:").getPath();
+            writer = new FileWriter(logPath + "alipay_log_" + System.currentTimeMillis() + ".txt");
             writer.write(sWord);
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,5 +89,6 @@ public class AlipayConfig {
             }
         }
     }
+
 }
 
