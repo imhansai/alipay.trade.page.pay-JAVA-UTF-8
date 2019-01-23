@@ -199,6 +199,7 @@
         <h2 id="tab3" name="tab">退 款</h2>
         <h2 id="tab4" name="tab">退 款 查 询</h2>
         <h2 id="tab5" name="tab">交 易 关 闭</h2>
+        <h2 id="tab6" name="tab">对 账 单 下 载</h2>
     </div>
     <form name=alipayment action="tradePagePay" method=post target="_blank">
         <div id="body1" class="show" name="divcontent">
@@ -345,6 +346,27 @@
             </dl>
         </div>
     </form>
+
+    <form action="billDownload" method="post">
+        <div id="body6" class="tab-content" th:name="divcontent">
+            <dl class="content">
+                <dt>账单时间：</dt>
+                <dd>
+                    <input type="text" placeholder="月: yyyy-MM 日: yyyy-MM-dd" name="bill_date">
+                </dd>
+
+                <hr class="one_line">
+                <dt></dt>
+                <dd id="btn-dd">
+                    <span class="new-btn-login-sp">
+                        <button class="new-btn-login" type="submit" style="text-align: center">对账单下载</button>
+                    </span>
+                </dd>
+
+            </dl>
+        </div>
+    </form>
+
     <div id="foot">
         <ul class="foot-ul">
             <li>支付宝版权所有 2015-2018 ALIPAY.COM</li>

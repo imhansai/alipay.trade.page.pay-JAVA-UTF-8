@@ -3,13 +3,16 @@ package com.alipay.controller;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.domain.AlipayDataDataserviceBillDownloadurlQueryModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.alipay.api.request.AlipayDataDataserviceBillDownloadurlQueryRequest;
 import com.alipay.api.request.AlipayTradeCloseRequest;
 import com.alipay.api.request.AlipayTradeFastpayRefundQueryRequest;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.request.AlipayTradeQueryRequest;
 import com.alipay.api.request.AlipayTradeRefundRequest;
+import com.alipay.api.response.AlipayDataDataserviceBillDownloadurlQueryResponse;
 import com.alipay.config.AlipayConfig;
 import com.alipay.params.AlipayTradePagePayParams;
 import lombok.extern.slf4j.Slf4j;
@@ -367,6 +370,31 @@ public class AlipayController {
         }
         // ——请在这里编写您的程序（以上代码仅作参考）——
 
+    }
+
+    @PostMapping("billDownload")
+    public void billDownload(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException {
+        String bill_date = request.getParameter("bill_date");
+        String bill_type = "trade";
+
+        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
+
+        AlipayDataDataserviceBillDownloadurlQueryRequest alipayDataDataserviceBillDownloadurlQueryRequest = new AlipayDataDataserviceBillDownloadurlQueryRequest();
+
+        AlipayDataDataserviceBillDownloadurlQueryModel model = new AlipayDataDataserviceBillDownloadurlQueryModel();
+        model.setBillDate(bill_date);
+        model.setBillType(bill_type);
+
+        alipayDataDataserviceBillDownloadurlQueryRequest.setBizModel(model);
+
+        AlipayDataDataserviceBillDownloadurlQueryResponse alipayDataDataserviceBillDownloadurlQueryResponse = alipayClient.execute(alipayDataDataserviceBillDownloadurlQueryRequest);
+        if (alipayDataDataserviceBillDownloadurlQueryResponse.isSuccess()) {
+            String billDownloadUrl = alipayDataDataserviceBillDownloadurlQueryResponse.getBillDownloadUrl();
+            response.sendRedirect(billDownloadUrl);
+        } else {
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().println("调用失败");
+        }
     }
 
 }
